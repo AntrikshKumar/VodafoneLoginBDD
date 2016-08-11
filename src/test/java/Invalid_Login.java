@@ -1,4 +1,4 @@
-package Invalid_Login;
+package test.java;
 
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;

@@ -1,15 +1,17 @@
-package stepDefinition;
+package test.java;
 
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class Test_Steps {
+	
 	public static WebDriver driver = new FirefoxDriver();
 	@Given("^User is on Home Page$")
 	public void user_is_on_Home_Page() throws Throwable {
@@ -37,17 +39,14 @@ public class Test_Steps {
 		}
 	
 	@Then("^Error message is displayed$")
-	public void Error_message_is_displayed() throws Throwable {
-		String error_msg = driver.findElement(By.xpath("//div[@class='submitError']")).getText();
-		if(error_msg != null)
-		{
-			System.out.println(error_msg);
-		}
-		else
-		{
-			System.out.println("Login Successful");
-		}
-	    driver.quit();
+	public void Error_message_is_displayed(String arg1) throws Throwable {
+		String expected= arg1;
+		String actual= driver.findElement(By.xpath("//div[@class='submitError']")).getText();
+		org.junit.Assert.assertEquals("Error message is not same",expected,actual);
+
 	}
-	
+	@After
+	public static void tearDown(){
+		driver.quit();
+	}
 }
