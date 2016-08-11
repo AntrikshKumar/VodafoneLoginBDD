@@ -4,6 +4,9 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import PageObjects.MyVodafone_First;
+import PageObjects.MyVodafone_LoginPage;
+import PageObjects.MyVodafone_Second;
 
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
@@ -22,20 +25,20 @@ public class Test_Steps {
 	
 	@When("^User clicks on My Vodafone$")
 	public void user_clicks_on_My_Vodafone() throws Throwable {
-		driver.findElement(By.xpath("/html/body/header/div/div[5]/div/ul/li[6]")).click();
-		driver.findElement(By.xpath("//input[@title='Search']")).click();
+		MyVodafone_First.lnk_MyVodafone(driver).click();
+		MyVodafone_First.txtbox_Search(driver).click();
 		}
 	
 	@When("^User clicks 'Login' on 'http://www.vodafone.co.nz/using-myvodafone/' Page$")
 	public void user_clicks_Login() throws Throwable {
-		driver.findElement(By.xpath("//a[@title='Login']")).click();
+		MyVodafone_Second.Btn_Login(driver).click();
 		}
 	
 	@When("^User enters Invalid Username and Invalid Password$")
 	public void user_enters_Invalid_UserName_and_Password() throws Throwable {
-		driver.findElement(By.xpath("//input[@id='myvfLoginOnlineId']")).sendKeys("wertfd");
-		driver.findElement(By.xpath("//input[@id='myvfLoginPassword']")).sendKeys("fhduhi");
-		driver.findElement(By.xpath("//input[@id='sign-in-button']")).click();
+		MyVodafone_LoginPage.txtbox_Username(driver).sendKeys("wertff");
+		MyVodafone_LoginPage.txtbox_Password(driver).sendKeys("fhduhi");
+		MyVodafone_LoginPage.btn_SignIn(driver).click();
 		}
 	
 	@Then("^Error message is displayed$")
