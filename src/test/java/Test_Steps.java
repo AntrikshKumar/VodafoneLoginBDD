@@ -26,7 +26,6 @@ public class Test_Steps {
 	@When("^User clicks on My Vodafone$")
 	public void user_clicks_on_My_Vodafone() throws Throwable {
 		MyVodafone_First.lnk_MyVodafone(driver).click();
-		MyVodafone_First.txtbox_Search(driver).click();
 		}
 	
 	@When("^User clicks 'Login' on 'http://www.vodafone.co.nz/using-myvodafone/' Page$")
@@ -34,17 +33,18 @@ public class Test_Steps {
 		MyVodafone_Second.Btn_Login(driver).click();
 		}
 	
-	@When("^User enters Invalid Username and Invalid Password$")
-	public void user_enters_Invalid_UserName_and_Password() throws Throwable {
-		MyVodafone_LoginPage.txtbox_Username(driver).sendKeys("wertff");
-		MyVodafone_LoginPage.txtbox_Password(driver).sendKeys("fhduhi");
+	@When("^User enters \"(.*)\" and \"(.*)\"$")
+	public void user_enters_Invalid_UserName_and_Password(String username, String password) 
+			throws Throwable {
+		MyVodafone_LoginPage.txtbox_Username(driver).sendKeys(username);
+		MyVodafone_LoginPage.txtbox_Password(driver).sendKeys(password);
 		MyVodafone_LoginPage.btn_SignIn(driver).click();
 		}
 	
 	@Then("^Error message is displayed$")
 	public void Error_message_is_displayed(String arg1) throws Throwable {
 		String expected= arg1;
-		String actual= driver.findElement(By.xpath("//div[@class='submitError']")).getText();
+		String actual= driver.findElement(By.xpath("//*[@id='loginHandler']/label")).getText();
 		org.junit.Assert.assertEquals("Error message is not same",expected,actual);
 
 	}
